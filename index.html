@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div.common{
+            border-radius: 50%; 
+            height: 50px; 
+            width: 50px; 
+            float: left; 
+            margin: 20px;
+
+        }
+        div.firstInLine{
+            clear: left;
+        }
+        div.lightOn {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="app"></div>
+
+    <script>
+        let html = document.getElementById('app');
+        let infoDiv ='';
+        let randomColor ='';
+        let selectedLampIndex = 0;
+        var startTime;
+        var endTime;
+        var timeDifferenceMiliSecond;
+        var timeDifferenceSecond=null;
+      
+
+       lampIndex();
+        function view(){
+            let infoDiv ='<h1>Click on the yellow circle as fast as you can</h1><br/>';
+            for(i=0; i<25; i++) {
+                tilfeldigFarge();
+                let styleText = i%5==0? 'firstInLine': '';
+  
+                infoDiv += `
+                <div class="common ${styleText}" 
+                style="background-color: ${i==selectedLampIndex? 'yellow': randomColor}"
+                ${i==selectedLampIndex ? 'onclick="timeCounter(); lampIndex()" ' : ''}
+                ></div>
+                `;
+            }
+            timeDifferenceSecond? infoDiv += `<br/><h3 style="clear:both;">You took ${timeDifferenceSecond} seconds to find out the right circle.` : infoDiv += '';
+            html.innerHTML= infoDiv;
+
+             
+            console.log(startTime, endTime);
+        }
+    
+
+        function lampIndex() {
+            selectedLampIndex = tilfeldigTall(0, 24);
+            startTime = new Date().getTime();
+            view();
+            
+            
+        }
+        function timeCounter(){
+            endTime = new Date().getTime();
+            timeDifferenceMiliSecond = Math.floor(endTime - startTime);
+            return timeDifferenceSecond = timeDifferenceMiliSecond/1000;
+
+        }
+
+
+        function tilfeldigFarge() {
+            return  randomColor= '#' + 
+                tilfeldigTallEllerBokstavABCDEF() +
+                tilfeldigTallEllerBokstavABCDEF() +
+                tilfeldigTallEllerBokstavABCDEF() +
+                tilfeldigTallEllerBokstavABCDEF() +
+                tilfeldigTallEllerBokstavABCDEF() +
+                tilfeldigTallEllerBokstavABCDEF();
+        }
+        function tilfeldigTallEllerBokstavABCDEF() {
+            var tall = tilfeldigTall(0, 15);
+            if (tall<10) return tall;
+            const charCodeA = 'a'.charCodeAt(0);
+            return String.fromCharCode(tall - 10 + charCodeA);
+        }
+        function tilfeldigTall(minimum, maksimum) {
+            return minimum + Math.floor(Math.random()*(maksimum-minimum+1));
+        
+        }
+
+    </script>
+</body>
+
+
+</html>
