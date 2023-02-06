@@ -51,23 +51,23 @@
                 ></div>
                 `;
             }
-            timeDifferenceSecond? infoDiv += `<br/><h3 style="clear:both;">You took ${timeDifferenceSecond} seconds to find out the right circle.` : infoDiv += '';
             html.innerHTML= infoDiv;
+            startTime = new Date().getTime();
 
-             
-            console.log(startTime, endTime);
+            timeDifferenceSecond? html.innerHTML += `<br/><h3 style="clear:both;">You took ${timeDifferenceSecond} seconds to find out the right circle.` : html.innerHTML += '';
+        
+            
         }
     
 
         function lampIndex() {
             selectedLampIndex = tilfeldigTall(0, 24);
-            startTime = new Date().getTime();
             view();
-            
-            
+          
         }
         function timeCounter(){
             endTime = new Date().getTime();
+            console.log(startTime, endTime);
             timeDifferenceMiliSecond = Math.floor(endTime - startTime);
             return timeDifferenceSecond = timeDifferenceMiliSecond/1000;
 
